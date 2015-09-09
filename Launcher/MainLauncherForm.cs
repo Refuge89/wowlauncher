@@ -37,7 +37,9 @@ namespace Launcher
 
         private void CacheButton_Click(object sender, EventArgs e)
         {
-            var cachefolder = Properties.Settings.Default.wow_path.Substring(0, Properties.Settings.Default.wow_path.Length - 7);
+            var path = Properties.Settings.Default.wow_path;
+            var subamount = path.Substring(path.LastIndexOf("\\")).Length - 1;
+            var cachefolder = path.Substring(0, path.Length - subamount);
             if(Directory.Exists(cachefolder + "Cache"))
             {
                 Directory.Delete(cachefolder + "Cache", true);
