@@ -42,8 +42,16 @@ namespace Launcher
             var cachefolder = path.Substring(0, path.Length - subamount);
             if(Directory.Exists(cachefolder + "Cache"))
             {
-                Directory.Delete(cachefolder + "Cache", true);
-                MessageBox.Show("Cache Cleared!");
+                try
+                {
+                    Directory.Delete(cachefolder + "Cache", true);
+                    MessageBox.Show("Cache Cleared!");
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
 
@@ -73,6 +81,10 @@ namespace Launcher
                 {
                     Properties.Settings.Default.wow_path = openFileDialog1.FileName;
                     Properties.Settings.Default.Save();
+                }
+                else if(openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                {
+                    this.Close();
                 }
                 else
                 {
